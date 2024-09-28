@@ -14,6 +14,14 @@ from .models import ShortLink
 from django.shortcuts import redirect, get_object_or_404
 from .forms import ShortLinkForm
 from .utils import generate_short_code
+import os
+from dotenv import load_dotenv
+
+
+load_dotenv()  # Загружаем переменные из .env файла
+
+API_TOKEN = os.getenv("API_TOKEN")
+
 def redirect_to_statistics(request):
     return HttpResponseRedirect('/admin/bot/botstatistics/statistics/')
 
@@ -41,8 +49,6 @@ def connect_db():
         user="postgres",
         password="P@$$w0rd"  # Замените на ваш пароль
     )
-
-API_TOKEN = '7339050381:AAER1DCSwq0wrXOXjbolDmeqDZ524Vqzv4o'
 
 
 # Функция для обновления записи в базе, отмечая последнее сообщение как "оплачено"
