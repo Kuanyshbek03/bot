@@ -18,7 +18,7 @@ from apscheduler.jobstores.base import JobLookupError
 import logging
 from datetime import datetime, timedelta
 from apscheduler.triggers.date import DateTrigger
-#from .push_notifications import add_notification_jobs
+from .push_notifications import add_notification_jobs
 from .bot_notifications import start_scheduler
 from .statistics_utils import get_statistics
 from .volna_two import start_second_wave, send_trial_lesson_callback
@@ -440,7 +440,7 @@ async def send_video(chat_id: int, context: ContextTypes.DEFAULT_TYPE) -> None:
     save_statistics(chat_id, short_message, unique_identifier)
 
 
-trial_end_date = datetime(2024, 9, 29)
+trial_end_date = datetime(2024, 9, 27)
     
 @requires_no_payment
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -659,7 +659,7 @@ def main() -> None:
     # Настраиваем планировщик
     scheduler = AsyncIOScheduler()
     restore_tasks(scheduler, application.bot)
-    #add_notification_jobs(scheduler, application.bot)
+    add_notification_jobs(scheduler, application.bot)
     start_scheduler(scheduler, application.bot)
     scheduler.start()
 

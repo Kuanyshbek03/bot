@@ -36,7 +36,7 @@ from django.http import JsonResponse
 import json
 
 def wheel_view(request):
-    return render(request, 'bot/wheel.html')
+    return render(request, 'bot/wheel1.html')
 
 
 

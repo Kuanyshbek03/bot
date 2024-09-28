@@ -7,7 +7,7 @@ import asyncio
 
 logger = logging.getLogger(__name__)
 
-
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 
 async def send_scheduled_notification(bot, chat_id, content: dict) -> None:
     logger.info(f"Отправляем уведомление пользователю {chat_id}")
@@ -23,7 +23,13 @@ async def send_scheduled_notification(bot, chat_id, content: dict) -> None:
     # Создайте кнопки только если они есть
     keyboard = []
     if buttons:
-        keyboard = [[InlineKeyboardButton(text=btn["text"], url=btn["url"]) for btn in buttons]]
+        for btn in buttons:
+            if "web_app" in btn:
+                # Используем WebAppInfo для создания web_app кнопки
+                web_app_info = WebAppInfo(url=btn["web_app"])
+                keyboard.append([InlineKeyboardButton(text=btn["text"], web_app=web_app_info)])
+            else:
+                keyboard.append([InlineKeyboardButton(text=btn["text"], url=btn["url"])])
 
     reply_markup = InlineKeyboardMarkup(keyboard) if keyboard else None  # Установите reply_markup только если есть кнопки
 
@@ -38,7 +44,6 @@ async def send_scheduled_notification(bot, chat_id, content: dict) -> None:
     except Exception as e:
         logger.error(f"Не удалось отправить {content_type} уведомление пользователю {chat_id}: {e}")
 
-
 def get_unpaid_users():
     conn = connect_db()
     cursor = conn.cursor()
@@ -52,35 +57,16 @@ async def test_send_message(bot):
     #asyncio.ensure_future(test_send_message(bot))
 
 def add_notification_jobs(scheduler: AsyncIOScheduler, bot) -> None:
-    unpaid_users = get_unpaid_users() # Используйте ваши реальные ID
+    unpaid_users = get_unpaid_users()  # Получаем список пользователей, которые не оплатили
 
     notification_schedule = [
-                {
-            "day": 25,
-            "hour": 14,
-            "minute": 17,  # Тут используется целое число
-            "content": {
-                "type": "photo",
-                "photo_path": r"C:\Users\Kuanysh\Загрузки\5429390754876351551.jpg",
-                "text": """
-*ПОСЛЕДНИЕ 3 ЧАСА* 🕒
-
-Это твой последний шанс присоединиться к марафону!
-
-Через 3 часа регистрация закроется, и возможности изменить себя больше не будет ❌
-
-Не упусти этот момент — действуй сейчас и начни свой путь к лучшей версии себя вместе с AIEL 💗
-""",
-                "button_text": "Записаться на курс"
-            }
-        },
         {
-            "day": 25,
-            "hour": 14,
-            "minute": 20,  # Минуты могут быть заданы числом
+            "day": 28,
+            "hour": 16,
+            "minute": 57,  # Используем точное время отправки
             "content": {
                 "type": "photo",
-                "photo_path": r"C:\Users\Kuanysh\Загрузки\5429390754876351551.jpg",
+                "photo_path": r"C:\Users\Kuanysh\Загрузки\5429390754876351551.jpg",  # Путь к фото
                 "text": """
 *ПОСЛЕДНИЕ 3 ЧАСА* 🕒
 
@@ -90,9 +76,14 @@ def add_notification_jobs(scheduler: AsyncIOScheduler, bot) -> None:
 
 Не упусти этот момент — действуй сейчас и начни свой путь к лучшей версии себя вместе с AIEL 💗
 """,
-                "button_text": "Участвовать"
+                "buttons": [
+                    {
+                        "text": "Испытать удачу 🎁",
+                        "web_app": "https://40d6-2a0d-b201-40-e671-fd79-8892-a812-88d3.ngrok-free.app/wheel/"  # Замените на реальный URL WebApp
+                    }
+                ]
             }
-        },
+        }
     ]
 
     for chat_id in unpaid_users:
@@ -102,8 +93,8 @@ def add_notification_jobs(scheduler: AsyncIOScheduler, bot) -> None:
                 scheduler.add_job(
                     send_scheduled_notification,
                     trigger=CronTrigger(day=schedule1["day"], hour=schedule1["hour"], minute=schedule1["minute"]),
-                    args=[bot, chat_id, schedule1["content"]], 
-                    id=job_id, 
+                    args=[bot, chat_id, schedule1["content"]],
+                    id=job_id,
                     replace_existing=True
                 )
                 logger.info(f"Задача {job_id} добавлена для пользователя {chat_id}")
