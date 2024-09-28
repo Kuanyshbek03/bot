@@ -1,35 +1,29 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <title>Колесо удачи</title>
-</head>
-<body>
-    <div class="wheel-container">
-        <fieldset class="ui-wheel-of-fortune">
-            <ul>
-                <li>Скидка 5%</li>
-                <li>Скидка 10%</li>
-                <li>Скидка 15%</li>
-                <li>Скидка 20%</li>
-                <li>Скидка 25%</li>
-                <li>Скидка 30%</li>
-                <li>Скидка 35%</li>
-                <li>Скидка 40%</li>
-                <li>Скидка 45%</li>
-                <li>Скидка 50%</li>
-                <li>Скидка 60%</li>
-                <li>Скидка 70%</li>
-            </ul>
-            <button type="button" id="spinButton">Испытай удачу</button>
-        </fieldset>
-    </div>
-
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src="% static 'js/script.js' %"></script>
-</body>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale = 1.0">
+        <link rel="stylesheet" type="text/css" href="styles.css">
+        <title>Spin Wheel</title>
+    </head>
+    <body>
+        <button id="spin"></button>
+        <span class="arrow"></span>
+        <img class="element" src = "img/element.png">
+        <img class="jackpot" src = "img/jackpot.png" style="position: absolute; top: 320px; left: 1305px">
+        <div class="container">
+            <div class="one">Скидка 5%</div>
+            <div class="two">Скидка 10%</div>
+            <div class="three">Скидка 15%</div>
+            <div class="four">Скидка 20%</div>
+            <div class="five">Скидка 25%</div>
+            <div class="six">Скидка 30%</div>
+            <div class="seven">Скидка 35%</div>
+            <div class="eight">Скидка 40%</div>
+            <div class="nine">Скидка 45%</div>
+            <div class="ten">Скидка 50%</div>
+            <div class="eleven">Скидка 60%</div>
+            <div class="twelve">Скидка 70%</div>
+        </div>
+        <script src="script.js"></script>
+    </body>
 </html>
-
