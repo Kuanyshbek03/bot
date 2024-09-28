@@ -1,0 +1,25 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<h1>Создание короткой ссылки</h1>
+<div style="width: 50%; margin: 0 auto; background-color: #2e2e2e; padding: 20px; border-radius: 10px;">
+    <form method="post" style="display: flex; flex-direction: column; align-items: center;">{% csrf_token %}
+        <div style="width: 100%; margin-bottom: 15px;">
+            <label for="name_of_url" style="color: #ffffff;">Название ссылки:</label>
+            {{ form.name_of_url|add_class:"form-control" }}
+        </div>
+        <div style="width: 100%; margin-bottom: 15px;">
+            <label for="source" style="color: #ffffff;">Источник:</label>
+            {{ form.source|add_class:"form-control" }}
+        </div>
+        <button type="submit" class="button" style="padding: 10px 20px; background-color: #007bff; color: #ffffff; border: none; border-radius: 5px; cursor: pointer;">Создать короткую ссылку</button>
+    </form>
+
+    {% if short_url %}
+        <div style="margin-top: 20px;">
+            <h3 style="color: #ffffff;">Короткая ссылка создана:</h3>
+            <a href="{{ short_url }}" style="color: #00ff00;">{{ short_url }}</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

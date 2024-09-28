@@ -1,0 +1,27 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+  <h1>Статистика </h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Идентификатор</th>
+        <th>Сообщение</th>
+        <th>Количество счетов</th>
+        <th>Количество покупок</th>
+        <th>CV общая</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for stat in stats %}
+        <tr>
+          <td>{{ stat.unique_identifier }}</td>
+          <td>{{ stat.message }}</td>
+          <td>{{ stat.total_messages }}</td>
+          <td>{{ stat.total_purchases }}</td>
+          <td>{{ stat.conversion_rate|floatformat:2 }}%</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

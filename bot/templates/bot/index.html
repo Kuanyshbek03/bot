@@ -1,0 +1,104 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Онлайн-марафон</title>
+    <style>
+        body {
+            background-color: #f36f7c;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .avatar {
+            border-radius: 50%;
+            margin-bottom: 20px;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+        h1 {
+            margin-top: 10px;
+            font-size: 36px;
+            font-weight: bold;
+        }
+        p {
+            margin-top: 5px;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .buttons {
+            margin-top: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        .buttons a {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: white;
+            color: #f36f7c;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .buttons a:hover {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        .footer {
+            margin-top: 50px;
+            font-size: 15px !important; /* Принудительное уменьшение размера текста */
+            padding: 20px;
+            background-color: #f36f7c;
+            text-align: center;
+            color: white;
+        }
+        /* Более специфичный селектор для повышения приоритета */
+        body .footer p {
+            font-size: 15px !important;
+        }
+        .footer a {
+            color: white;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{% static 'statistics_app/avatar.jpg' %}" alt="Avatar" class="avatar">
+        <h1>(aiel)</h1>
+        <p>Онлайн-марафон <a href="#" style="color: white; text-decoration: underline;">Карины Оксукпаевой</a></p>
+        <div class="buttons">
+            <a href="https://instagram.com/your_instagram" target="_blank">Instagram проекта</a>
+            <a href="https://t.me/your_telegram_bot" target="_blank">Стать участником</a>
+        </div>
+        <p>Стоимость участия - 4 990 тг</p>
+    </div>
+    <div class="footer">
+        <p>Проект компании "Yuframe Label". Марафон проходит в Telegram-боте, доступном по кнопке выше.</p>
+        <p>Нажимая на кнопку "Стать участником", Вы безоговорочно принимаете следующие документы:</p>
+        <p><a href="#">Договор-оферта</a> | <a href="#">Политика конфиденциальности</a> | <a href="#">Политика приема платежей</a></p>
+    </div>
+</body>
+</html>

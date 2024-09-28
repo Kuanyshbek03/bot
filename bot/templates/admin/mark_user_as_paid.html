@@ -1,0 +1,20 @@
+{% extends "admin/base_site.html" %}
+{% load custom_filters %}
+
+
+{% block content %}
+<h1 style="text-align: center; color: #ffffff;">Отметить пользователя как оплатившего</h1>
+<div style="width: 50%; margin: 0 auto; background-color: #2e2e2e; padding: 20px; border-radius: 10px;">
+    <form method="post" style="display: flex; flex-direction: column; align-items: center;">{% csrf_token %}
+        <div style="width: 100%; margin-bottom: 15px;">
+            <label for="telegram_id" style="color: #ffffff;">Telegram ID:</label>
+            {{ form.telegram_id|add_class:"form-control" }}
+        </div>
+        <div style="width: 100%; margin-bottom: 15px;">
+            <label for="username" style="color: #ffffff;">Username:</label>
+            {{ form.username|add_class:"form-control" }}
+        </div>
+        <button type="submit" class="button" style="padding: 10px 20px; background-color: #007bff; color: #ffffff; border: none; border-radius: 5px; cursor: pointer;">Отметить как оплатившего</button>
+    </form>
+</div>
+{% endblock %}
